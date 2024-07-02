@@ -14,7 +14,7 @@ router.get('/getUsers', async (req, res) => {
 });
 
 router.get('/getUsers/:userEmail', async (req, res) => {
-    let users = await User.findOne({ 'email': req.params.userEmail });
+    let users = await User.findOne({ "email": req.params.userEmail });
     if (users) {
         res.send(users);
     } else {
@@ -23,20 +23,20 @@ router.get('/getUsers/:userEmail', async (req, res) => {
 });
 
 router.post('/addUser', async (req, res) => {
-    let user = User(req.body);
-    let users = await User.findOne({ 'email': user });
-    if (users) {
+    let details = User(req.body);
+    let user = await User.findOne({ "email": req.body.email });
+    if (user) {
         res.send("user already found");
     } else {
-        await User.create(user);
+        await User.create(details);
         res.send("user created");
     }
 });
 
 router.put('/updateUser/:userEmail', async (req, res) => {
-    let users = await User.findOne({ 'email': req.params.userEmail });
-    if(users){
-        await User.findOneAndUpdate({"email": req.params.userEmail}, {
+    let users = await User.findOne({ "email": req.params.userEmail });
+    if (users) {
+        await User.findOneAndUpdate({ "email": req.params.userEmail }, {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.params.userEmail,
@@ -44,17 +44,17 @@ router.put('/updateUser/:userEmail', async (req, res) => {
             password: req.body.password
         });
         res.send("user updated");
-    }else{
+    } else {
         res.send("user not found");
     }
 });
 
 router.delete('/removeUser/:userEmail', async (req, res) => {
-    let users = await User.findOne({ 'email': req.params.userEmail });
-    if(users){
-        await User.findOneAndDelete({"email": req.params.userEmail});
+    let users = await User.findOne({ "email": req.params.userEmail });
+    if (users) {
+        await User.findOneAndDelete({ "email": req.params.userEmail });
         res.send("user removed");
-    }else{
+    } else {
         res.send("user not found");
     }
 });

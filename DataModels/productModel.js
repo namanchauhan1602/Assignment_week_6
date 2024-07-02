@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    proce: {
+    price: {
         type: String,
         required: true
     }
